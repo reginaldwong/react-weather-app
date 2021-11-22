@@ -4,7 +4,7 @@ import styled from "styled-components";
 const WeatherLogo = styled.img`
 width: 140px;
 height: 140px;
-margin: 40px auto;
+margin: 40px 25px auto;
 `
 
 const ChooseCityLabel = styled.span`
@@ -29,6 +29,7 @@ margin: 20px auto;
     font-size: 16px;
     border: none;
     font-weight: bold;
+    outline: none;
 }
 
 & button {
