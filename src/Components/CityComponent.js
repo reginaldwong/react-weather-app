@@ -43,14 +43,15 @@ margin: 20px auto;
 }
 `
 
-const CityComponent = () => {
+const CityComponent = (props) => {
+    const {setCity, fetchWeather} = props;
     return (
         <>
         <WeatherLogo src="/icons/perfect-day.svg"/>
         <ChooseCityLabel>Find weather of city</ChooseCityLabel>
-        <SearchBox>
-            <input placeholder="Enter city here"/>
-            <button>Search</button>
+        <SearchBox onSubmit={fetchWeather}>
+            <input placeholder="Enter city here" onChange={(e)=>setCity(e.target.value)}/>
+            <button type="submit">Search</button>
         </SearchBox>
         </>
     )

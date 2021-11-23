@@ -1,6 +1,14 @@
 import styled from "styled-components";
 import React from "react";
 
+export const WeatherInfoIcons = {
+    sunset: "/icons/temp.svg",
+    sunrise: "/icons/temp.svg",
+    humidity: "/icons/humidity.svg",
+    wind: "/icons/wind.svg",
+    pressure: "/icons/pressure.svg",
+};
+
 const WeatherCondition = styled.div`
     display: flex;
     flex-direction: row;
@@ -16,7 +24,7 @@ const Condition = styled.span`
     & span {
         font-size: 1.5rem;
         font-weight: bold;
-    }
+    };
 `;
 
 const WeatherLogo = styled.img`
@@ -26,12 +34,12 @@ const WeatherLogo = styled.img`
 `;
 
 const Location = styled.span`
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     font-weight: bold;
 `;
 
 const WeatherInfoLabel = styled.span`
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     font-weight: bold;
     margin: 30px 25px 10px;
     text-align: start;
@@ -68,22 +76,24 @@ const InfoLabel = styled.span`
     & span {
         font-size: 1.15rem;
         text-transform: uppercase;
-    }
+    };
 `;
 
-const WeatherInfoComponent = () => {
+const WeatherInfoComponent = (props) => {
+    const { name, value } = props;
     return (
         <InfoContainer>
-            <InfoIcon src="/icons/temp.svg" />
+            <InfoIcon src={WeatherInfoIcons[name]} />
             <InfoLabel>
-            06:47
-            <span>Sunrise</span>
+            {value}
+            <span>{name}</span>
             </InfoLabel>
         </InfoContainer>
-    )
-}
+    );
+};
 
-const WeatherComponent = () => {
+const WeatherComponent = (props) => {
+    const { weather } = props;
     return (
     <>
         <WeatherCondition>
@@ -93,16 +103,14 @@ const WeatherComponent = () => {
         <Location>London, GB</Location>
         <WeatherInfoLabel>Weather Info</WeatherInfoLabel>
         <WeatherInfoContainer>
-            <WeatherInfoComponent/>
-            <WeatherInfoComponent/>
-            <WeatherInfoComponent/>
-            <WeatherInfoComponent/>
+            <WeatherInfoComponent name="sunrise" value ="06:30"/>
+            <WeatherInfoComponent name="humidity" value ="432"/>
+            <WeatherInfoComponent name="wind" value ="6 km/hr"/>
+            <WeatherInfoComponent name="pressure" value ="35"/>
+            <WeatherInfoComponent name="pressure" value ="235"/>
         </WeatherInfoContainer>
     </>
     );
 };
-  
-
-
 
 export default WeatherComponent;
