@@ -9,6 +9,23 @@ export const WeatherInfoIcons = {
     pressure: "/icons/pressure.svg",
 };
 
+export const WeatherIcons = {
+    "01d": "/icons/sunny.svg",
+    "01n": "/icons/night.svg",
+    "02d": "/icons/day.svg",
+    "02n": "/icons/cloudy-night.svg",
+    "03d": "/icons/cloudy.svg",
+    "03n": "/icons/cloudy.svg",
+    "04d": "/icons/perfect-day.svg",
+    "04n": "/icons/cloudy-night.svg",
+    "09d": "/icons/rain.svg",
+    "09n": "/icons/rain-night.svg",
+    "10d": "/icons/rain.svg",
+    "10n": "/icons/rain-night.svg",
+    "11d": "/icons/storm.svg",
+    "11n": "/icons/storm.svg",
+};
+
 const WeatherCondition = styled.div`
     display: flex;
     flex-direction: row;
@@ -22,7 +39,7 @@ const Condition = styled.span`
     margin: 20px auto;
     font-size: 1.25rem;
     & span {
-        font-size: 1.5rem;
+        font-size: 2rem;
         font-weight: bold;
     };
 `;
@@ -41,7 +58,7 @@ const Location = styled.span`
 const WeatherInfoLabel = styled.span`
     font-size: 1.2rem;
     font-weight: bold;
-    margin: 30px 25px 10px;
+    margin: 30px 10px;
     text-align: start;
     width: 90%;
 `;
@@ -94,20 +111,27 @@ const WeatherInfoComponent = (props) => {
 
 const WeatherComponent = (props) => {
     const { weather } = props;
+    const isDay = weather?.weather[0].icon?.includes('d')
+    const getTime = (timeStamp) => {
+        return `${new Date(timeStamp * 1000).getHours()} : ${new Date(timeStamp * 1000).getMinutes()}`
+    }
+
     return (
     <>
         <WeatherCondition>
-            <Condition><span>30 C</span> | Cloudy</Condition>
-            <WeatherLogo src="/icons/perfect-day.svg"/>
+            <Condition><span>{`${Math.floor(weather?.main.temp - 273)}°C`}</span>{` | ${weather?.weather[0].description}`}</Condition>
+            <WeatherLogo src={WeatherIcons[weather?.weather[0].icon]}/>
         </WeatherCondition>
-        <Location>London, GB</Location>
+        <Location>{`${weather?.name}, ${weather?.sys?.country}`}</Location>
         <WeatherInfoLabel>Weather Info</WeatherInfoLabel>
         <WeatherInfoContainer>
-            <WeatherInfoComponent name="sunrise" value ="06:30"/>
-            <WeatherInfoComponent name="humidity" value ="432"/>
-            <WeatherInfoComponent name="wind" value ="6 km/hr"/>
-            <WeatherInfoComponent name="pressure" value ="35"/>
-            <WeatherInfoComponent name="pressure" value ="235"/>
+            <WeatherInfoComponent 
+                name={isDay ? "sunset" : "sunrise"} 
+                value ={getTime(weather?.sys[isDay ? "sunset" : "sunrise"])}
+            />
+            <WeatherInfoComponent name="humidity" value ={weather?.main?.humidity}/>
+            <WeatherInfoComponent name="wind" value ={weather?.wind?.speed}/>
+            <WeatherInfoComponent name="pressure" value ={weather?.main?.pressure}/>
         </WeatherInfoContainer>
     </>
     );

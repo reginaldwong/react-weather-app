@@ -5,14 +5,14 @@ const WeatherLogo = styled.img`
 width: 140px;
 height: 140px;
 margin: 40px 25px auto;
-`
+`;
 
 const ChooseCityLabel = styled.span`
 color: black;
 font-size: 1.15rem;
 font-weight: bold;
 margin: 10px auto;
-`
+`;
 
 const SearchBox = styled.form`
 display: flex;
@@ -41,13 +41,13 @@ margin: 20px auto;
     font-weight: bold;
     cursor: pointer;
 }
-`
+`;
 
 const CityComponent = (props) => {
     const {setCity, fetchWeather} = props;
     return (
         <>
-        <WeatherLogo src="/icons/perfect-day.svg"/>
+        <WeatherLogo src="/icons/day.svg"/>
         <ChooseCityLabel>Find weather of city</ChooseCityLabel>
         <SearchBox onSubmit={fetchWeather}>
             <input placeholder="Enter city here" onChange={(e)=>setCity(e.target.value)}/>
