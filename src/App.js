@@ -33,7 +33,6 @@ function App() {
     e.preventDefault();
     const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`);
     setWeather(response.data);
-    console.log(response);``
     };
 
 
